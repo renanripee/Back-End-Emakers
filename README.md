@@ -1,2 +1,2 @@
-# Backend-Emakers
-Projeto desenvolvido para o processo trainee da Emakers Jr
+# Back-end Emakers
+Projeto desenvolvido para o treinamento de desenvolvedor Back-end do processo trainee da Emakers Jr
