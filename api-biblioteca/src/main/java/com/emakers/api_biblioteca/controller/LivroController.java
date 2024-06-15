@@ -45,7 +45,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<List<LivroResponseDTO>> getAllLivros(){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.getAllLivros());
     }
@@ -62,7 +62,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @GetMapping(value = "/{idLivro}")
+    @GetMapping(value = "/{idLivro}", consumes = "application/index", produces = "application/json")
     public ResponseEntity<LivroResponseDTO> getLivroById(@PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.getLivroById(idLivro));
     }
@@ -79,7 +79,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<LivroResponseDTO> createLivro(@Valid @RequestBody LivroRequestDTO livroRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.createLivro(livroRequestDTO));
     }
@@ -96,7 +96,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PutMapping("/update/{idLivro}")
+    @PutMapping(value = "/update/{idLivro}", consumes = "application/index", produces = "application/json")
     public ResponseEntity<LivroResponseDTO> updateLivro(@Valid @PathVariable Long idLivro, @RequestBody LivroRequestDTO livroRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.updateLivro(idLivro, livroRequestDTO));
     }
@@ -113,9 +113,8 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @DeleteMapping(value = "/delete/{idLivro}")
+    @DeleteMapping(value = "/delete/{idLivro}", consumes = "application/index")
     public ResponseEntity<String> deleteLivro(@PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.deleteLivro(idLivro));
-
     }
 }

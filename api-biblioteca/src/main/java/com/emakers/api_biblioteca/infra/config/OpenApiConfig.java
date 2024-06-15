@@ -16,7 +16,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Documentacao do Projeto Back-end Trainee EmakerJr") //titulo da documentacao
+                        .title("Documentação do Projeto Back-end - Processo Trainee EmakersJr - Renan") //titulo da documentacao
                         .version("v1") //versao da documentacao
                         .description("API de uma biblioteca") //descricao da documentacao
                 )

@@ -43,7 +43,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<List<PessoaResponseDTO>> getAllPessoas(){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.getAllPessoas());
     }
@@ -60,7 +60,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @GetMapping(value = "/{idPessoa}")
+    @GetMapping(value = "/{idPessoa}", consumes = "application/index", produces = "application/json")
     public ResponseEntity<PessoaResponseDTO> getPessoaById(@PathVariable Long idPessoa){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.getPessoaById(idPessoa));
     }
@@ -77,7 +77,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<PessoaResponseDTO> createPessoa(@Valid @RequestBody PessoaRequestDTO pessoaRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.createPessoa(pessoaRequestDTO));
     }
@@ -94,7 +94,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PutMapping("/update/{idPessoa}")
+    @PutMapping(value = "/update/{idPessoa}", consumes = "application/index", produces = "application/json")
     public ResponseEntity<PessoaResponseDTO> updatePessoa(@Valid @PathVariable Long idPessoa, @RequestBody PessoaRequestDTO pessoaRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.updatePessoa(idPessoa, pessoaRequestDTO));
     }
@@ -111,7 +111,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @DeleteMapping(value = "/delete/{idPessoa}")
+    @DeleteMapping(value = "/delete/{idPessoa}", consumes = "application/index")
     public ResponseEntity<String> deletePessoa(@PathVariable Long idPessoa){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.deletePessoa(idPessoa));
 
@@ -129,7 +129,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PutMapping(value = "/updateAddLivro/{idPessoa}/{idLivro}")
+    @PutMapping(value = "/updateAddLivro/{idPessoa}/{idLivro}", consumes = "application/index", produces = "application/json")
     public ResponseEntity<PessoaResponseDTO> updateAddLivro(@PathVariable Long idPessoa, @PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.updateAddLivro(idPessoa, idLivro));
     }
@@ -146,7 +146,7 @@ public class PessoaController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PutMapping(value = "/updateDelLivro/{idPessoa}/{idLivro}")
+    @PutMapping(value = "/updateDelLivro/{idPessoa}/{idLivro}", consumes = "application/index", produces = "application/json")
     public ResponseEntity<PessoaResponseDTO> updateDelLivro(@PathVariable Long idPessoa, @PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.updateDelLivro(idPessoa, idLivro));
     }
