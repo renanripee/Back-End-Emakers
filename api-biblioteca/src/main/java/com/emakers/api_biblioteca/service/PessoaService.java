@@ -1,5 +1,6 @@
 package com.emakers.api_biblioteca.service;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,32 +51,30 @@ public class PessoaService {
     public String deletePessoa(Long idPessoa){
         Pessoa Pessoa = getPessoaEntityById(idPessoa);
         pessoaRepositoy.delete(Pessoa);
-        return "Pessoa " + idPessoa + "deletada com sucesso!";
+        return "Pessoa " + idPessoa + " deletada com sucesso!";
     }
 
     public PessoaResponseDTO updateAddLivro(Long idPessoa, Long idLivro){
         Pessoa pessoa = getPessoaEntityById(idPessoa);
-        Livro livro = livroRepository.findById(idLivro).orElseThrow(() -> new RuntimeException("Erro ao achar livro por ID"));
-
+        Livro livro = livroRepository.findById(idLivro).orElseThrow(() -> new EntityNotFoundException(idPessoa));
         pessoa.getLivros().add(livro);
         pessoaRepositoy.save(pessoa);
-
         return new PessoaResponseDTO(pessoa);
     }
 
     public PessoaResponseDTO updateDelLivro(Long idPessoa, Long idLivro){
         Pessoa pessoa = getPessoaEntityById(idPessoa);
-
-        for (Livro i : pessoa.getLivros()) {
-            if (i.getId_livro() == idLivro) {
-                pessoa.getLivros().remove(i);
+        Iterator<Livro> iterator = pessoa.getLivros().iterator();
+        while (iterator.hasNext()) {
+            Livro livro = iterator.next();
+            if (livro.getId_livro().equals(idLivro)) {
+                iterator.remove();
             }
         }
         pessoaRepositoy.save(pessoa);
-
         return new PessoaResponseDTO(pessoa);
     }
-
+    
     private Pessoa getPessoaEntityById(Long idPessoa){
         Pessoa pessoa = pessoaRepositoy.findById(idPessoa).orElseThrow(()-> new EntityNotFoundException(idPessoa));
         return pessoa;

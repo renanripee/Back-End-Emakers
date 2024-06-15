@@ -18,6 +18,10 @@ import com.emakers.api_biblioteca.data.dto.request.PessoaRequestDTO;
 import com.emakers.api_biblioteca.data.dto.response.PessoaResponseDTO;
 import com.emakers.api_biblioteca.service.PessoaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
@@ -27,37 +31,121 @@ public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
 
+    @Operation(summary = "Lista todas as pessoas",
+            description = "Lista todas as pessoas cadastradas no sistema",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @GetMapping(value = "/all")
     public ResponseEntity<List<PessoaResponseDTO>> getAllPessoas(){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.getAllPessoas());
     }
 
+    @Operation(summary = "Retorna uma pessoa",
+            description = "Retorna uma pessoa cadastrada no sistema a partir da busca pelo deu Id",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @GetMapping(value = "/{idPessoa}")
     public ResponseEntity<PessoaResponseDTO> getPessoaById(@PathVariable Long idPessoa){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.getPessoaById(idPessoa));
     }
 
+    @Operation(summary = "Cadastra uma pessoa",
+            description = "Cadastra/cria uma pessoa no sistema",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @PostMapping("/create")
     public ResponseEntity<PessoaResponseDTO> createPessoa(@Valid @RequestBody PessoaRequestDTO pessoaRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.createPessoa(pessoaRequestDTO));
     }
     
+    @Operation(summary = "Atualiza uma pessoa",
+            description = "Atualiza os dados de uma pessoa no sistema, a partir de seu Id",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @PutMapping("/update/{idPessoa}")
     public ResponseEntity<PessoaResponseDTO> updatePessoa(@Valid @PathVariable Long idPessoa, @RequestBody PessoaRequestDTO pessoaRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.updatePessoa(idPessoa, pessoaRequestDTO));
     }
 
+    @Operation(summary = "Deleta um livro",
+            description = "Deleta uma pessoa do sistema a partir do seu Id",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @DeleteMapping(value = "/delete/{idPessoa}")
     public ResponseEntity<String> deletePessoa(@PathVariable Long idPessoa){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.deletePessoa(idPessoa));
 
     }
 
+    @Operation(summary = "Efetua o emprestimo de um livro a uma pessoa",
+            description = "Adiciona um livro à lista de livros de uma pessoa, a partir do Id de ambos",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @PutMapping(value = "/updateAddLivro/{idPessoa}/{idLivro}")
     public ResponseEntity<PessoaResponseDTO> updateAddLivro(@PathVariable Long idPessoa, @PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.updateAddLivro(idPessoa, idLivro));
     }
 
+    @Operation(summary = "Efetua a devolucao de um livro por uma pessoa",
+            description = "Remove o livro da lista de livros de uma pessoa, a partir do Id de ambos",
+            tags = {"Pessoa"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PessoaResponseDTO.class))
+                    ),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
     @PutMapping(value = "/updateDelLivro/{idPessoa}/{idLivro}")
     public ResponseEntity<PessoaResponseDTO> updateDelLivro(@PathVariable Long idPessoa, @PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(pessoaService.updateDelLivro(idPessoa, idLivro));
