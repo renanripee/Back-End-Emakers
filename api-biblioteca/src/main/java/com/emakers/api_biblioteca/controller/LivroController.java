@@ -62,7 +62,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @GetMapping(value = "/{idLivro}", consumes = "application/index", produces = "application/json")
+    @GetMapping(value = "/{idLivro}", produces = "application/json")
     public ResponseEntity<LivroResponseDTO> getLivroById(@PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.getLivroById(idLivro));
     }
@@ -96,7 +96,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @PutMapping(value = "/update/{idLivro}", consumes = "application/index", produces = "application/json")
+    @PutMapping(value = "/update/{idLivro}", produces = "application/json")
     public ResponseEntity<LivroResponseDTO> updateLivro(@Valid @PathVariable Long idLivro, @RequestBody LivroRequestDTO livroRequestDTO){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.updateLivro(idLivro, livroRequestDTO));
     }
@@ -113,7 +113,7 @@ public class LivroController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             }
     )
-    @DeleteMapping(value = "/delete/{idLivro}", consumes = "application/index")
+    @DeleteMapping(value = "/delete/{idLivro}")
     public ResponseEntity<String> deleteLivro(@PathVariable Long idLivro){
         return ResponseEntity.status(HttpStatus.OK).body(livroService.deleteLivro(idLivro));
     }
